@@ -1,0 +1,28 @@
+logging:
+  wandb_key: 1e349f15ef0ce18541da03a1ae74007c2add3e50
+  exp_name: exp1
+  project: colorization
+  resume_path: ~
+pipeline:
+  target
+sovler:
+  devices: 4
+  num_nodes: 1
+  strategy : ddp
+  precision: 32
+  max_epochs: 30
+  accumulate_grad_batches: 1 # k 개 배치에 대해 accumulation 이후 step
+  log_every_n_steps: 20
+
+validation:
+  metrics:
+    mssim:
+      target: torchmetrics.image.MultiScaleStructuralSimilarityIndexMeasure
+    psnr:
+      target: torchmetrics.image.PeakSignalNoiseRatio
+    ssim:
+      target: torchmetrics.image.StructuralSimilarityIndexMeasure
+    fid:
+      target: torchmetrics.image.fid.FrechetInceptionDistance
+      params:
+        feature: 2048

@@ -1,5 +1,7 @@
 *.onnx
 *.pt
+*.pth
+*.h7
 *.out
 trainable_params.txt
 logs
